@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="app.model">
+	<class name="Mark" table="marks">
+		<id name="id" column="id">
+			<generator class="increment" />
+		</id>
+
+		<property name="readStatus" type="int">
+			<column name="read_status" />
+		</property>
+		<property name="pageMark" type="int">
+			<column name="page_mark" />
+		</property>
+		<property name="favorite" type="boolean">
+			<column name="favorie" />
+		</property>
+		<!-- User mapping -->
+		<many-to-one name = "user" column = "user_id" fetch="select" 
+         class="User" not-null="true"/>
+         <!-- Category mapping -->
+         <many-to-one name = "book" column = "book_id" fetch="select"
+         class="Book" not-null="true"/>
+	</class>
+</hibernate-mapping>

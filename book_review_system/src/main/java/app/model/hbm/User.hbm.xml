@@ -1,0 +1,92 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="app.model">
+	<class name="User" table="users">
+		<id name="id" column="id">
+			<generator class="increment" />
+		</id>
+
+		<property name="fullName" type="string">
+			<column name="full_name" />
+		</property>
+		<property name="userName" type="string">
+			<column name="user_name" />
+		</property>
+		<property name="password" type="string">
+			<column name="password" />
+		</property>
+		<property name="phoneNumber" type="string">
+			<column name="phone_number" />
+		</property>
+		<property name="email" type="string">
+			<column name="email" />
+		</property>
+
+		<many-to-one name="role" column="role_id" class="Role"
+			not-null="true" fetch="join" />
+
+		<!-- List Follower -->
+		<list name="followeds" fetch="select">
+			<key column="followed_id" />
+			<list-index column="id" />
+			<one-to-many class="Follow" />
+		</list>
+
+		<!-- List Followed -->
+		<list name="followers" fetch="select">
+			<key column="follower_id" />
+			<list-index column="id" />
+			<one-to-many class="Follow" />
+		</list>
+
+		<!-- List Like -->
+		<list name="likes" fetch="select">
+			<key column="user_id" />
+			<list-index column="id" />
+			<one-to-many class="Like" />
+		</list>
+
+		<!-- List Activity -->
+		<list name="activities" fetch="select">
+			<key column="user_id" />
+			<list-index column="id" />
+			<one-to-many class="Activity" />
+		</list>
+
+		<!-- List Request -->
+		<list name="requests" fetch="select">
+			<key column="user_id" />
+			<list-index column="id" />
+			<one-to-many class="Request" />
+		</list>
+
+		<!-- List Mark -->
+		<list name="marks" fetch="select">
+			<key column="user_id" />
+			<list-index column="id" />
+			<one-to-many class="Mark" />
+		</list>
+
+		<!-- List Review -->
+		<list name="reviews" fetch="select">
+			<key column="user_id" />
+			<list-index column="id" />
+			<one-to-many class="Review" />
+		</list>
+
+		<!-- List Comment -->
+		<list name="comments" fetch="select">
+			<key column="user_id" />
+			<list-index column="id" />
+			<one-to-many class="Comment" />
+		</list>
+		<!--notifications  -->
+		<list name="notifications" fetch="select" cascade="delete"
+			inverse="true">
+			<key column="userId" />
+			<index column="id" />
+			<one-to-many class="Notification" />
+		</list>
+	</class>
+</hibernate-mapping>

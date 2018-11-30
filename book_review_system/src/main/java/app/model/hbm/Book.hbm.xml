@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="app.model">
+	<class name="Book" table="books">
+		<id name="id" column="id">
+			<generator class="increment" />
+		</id>
+		<property name="tittle" type="string">
+			<column name="tittle" />
+		</property>
+		<property name="publishDate" type="date">
+			<column name="publish_date" />
+		</property>
+		<property name="authorName" type="string">
+			<column name="author_name" />
+		</property>
+		<property name="numberOfPage" type="int">
+			<column name="number_of_page" />
+		</property>
+		<property name="image" type="string">
+			<column name="image" />
+		</property>
+		<!-- Category -->
+		 <many-to-one name="category" column="category_id" class="Category" fetch="join"
+			not-null="true" />
+
+		<!-- List Mark -->
+		<list name="marks" fetch="join" inverse="true">
+			<key column="book_id" />
+			<list-index column="id" />
+			<one-to-many class="Mark" />
+		</list>
+
+		<!-- List Followed -->
+		<list name="reviews" fetch="join">
+			<key column="book_id" />
+			<list-index column="id" />
+			<one-to-many class="Review" />
+		</list>
+	</class>
+</hibernate-mapping>

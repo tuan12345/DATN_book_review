@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 2.1//EN" "http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
+
+<tiles-definitions>
+
+	<!-- Base Definition -->
+	<definition name="baseLayout" template="/views/layout/baseLayout.jsp">
+		<put-attribute name="title" value="" />
+		<put-attribute name="header" value="/views/layout/header.jsp" />
+		<put-attribute name="body" value="" />
+		<put-attribute name="footer" value="/views/layout/footer.jsp" />
+	</definition>
+
+	<!-- home -->
+	<definition name="home" extends="baseLayout">
+		<put-attribute name="title" value="Home" />
+		<put-attribute name="body" value="/views/books/home.jsp" />
+	</definition>
+	<!-- list All Book -->
+	<definition name="books" extends="baseLayout">
+		<put-attribute name="title" value="Books" />
+		<put-attribute name="body" value="/views/books/books.jsp" />
+	</definition>
+
+	<!--bookSearch -->
+	<definition name="bookSearch" extends="baseLayout">
+		<put-attribute name="title" value="Book" />
+		<put-attribute name="body" value="/views/books/bookSearch.jsp" />
+	</definition>
+
+	<!-- Book detail -->
+	<definition name="bookDetail" extends="baseLayout">
+		<put-attribute name="title" value="Books" />
+		<put-attribute name="body" value="/views/books/bookDetail.jsp" />
+	</definition>
+
+	<!-- Admin Base -->
+	<definition name="adminLayout" template="/views/layout/adminBaseLayout.jsp">
+		<put-attribute name="title" value="" />
+		<put-attribute name="adminHeader" value="/views/layout/adminHeader.jsp" />
+		<put-attribute name="adminBody" value="" />
+	</definition>
+
+	<!-- Admin Home -->
+	<definition name="adminHome" extends="adminLayout">
+		<put-attribute name="title" value="ADMIN HOME" />
+		<put-attribute name="adminBody" value="/views/adminHome/home.jsp" />
+	</definition>
+
+	<!-- List User -->
+	<definition name="users" extends="adminLayout">
+		<put-attribute name="title" value="List User" />
+		<put-attribute name="adminBody" value="/views/adminHome/users.jsp" />
+	</definition>
+
+	<!-- Chart Page -->
+	<definition name="charts" extends="adminLayout">
+		<put-attribute name="title" value="Chart Report" />
+		<put-attribute name="adminBody" value="/views/adminHome/charts.jsp" />
+	</definition>
+
+	<!-- Admin Home -->
+	<definition name="adminBook" extends="adminLayout">
+		<put-attribute name="title" value="Book Manage" />
+		<put-attribute name="adminBody" value="/views/adminHome/adminBook.jsp" />
+	</definition>
+
+	<!-- Login Base -->
+	<definition name="loginLayout" template="/views/layout/loginLayout.jsp">
+		<put-attribute name="title" value="Login" />
+		<put-attribute name="loginBody" value="" />
+	</definition>
+
+	<!-- Login -->
+	<definition name="login" extends="loginLayout">
+		<put-attribute name="title" value="Login" />
+		<put-attribute name="login" value="/views/login/login.jsp" />
+	</definition>
+
+	<!-- Login -->
+	<definition name="forgotPassword" extends="loginLayout">
+		<put-attribute name="title" value="Forgot Password" />
+		<put-attribute name="login" value="/views/login/forgotPassword.jsp" />
+	</definition>
+
+	<!--Add Review -->
+	<definition name="addReview" extends="baseLayout">
+		<put-attribute name="title" value="Add Review" />
+		<put-attribute name="body" value="/views/books/addReview.jsp" />
+	</definition>
+	<!-- Profile -->
+
+	<definition name="profile" extends="baseLayout">
+		<put-attribute name="title" value="Profile" />
+		<put-attribute name="body" value="/views/users/profile.jsp" />
+	</definition>
+	<!--Request Book -->
+	<definition name="requestBook" extends="baseLayout">
+		<put-attribute name="title" value="Request" />
+		<put-attribute name="body" value="/views/books/requestBook.jsp" />
+	</definition>
+
+
+</tiles-definitions>

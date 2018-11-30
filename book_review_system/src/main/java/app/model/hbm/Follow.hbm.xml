@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="app.model">
+	<class name="Follow" table="follows">
+		<id name="id" column="id">
+			<generator class="increment" />
+		</id>
+		<!-- User mapping -->
+		<many-to-one name = "follower" column = "follower_id" 
+         class="User" not-null="true"/>
+         <!-- User mapping -->
+		<many-to-one name = "followed" column = "followed_id" 
+         class="User" not-null="true"/>
+	</class>
+</hibernate-mapping>

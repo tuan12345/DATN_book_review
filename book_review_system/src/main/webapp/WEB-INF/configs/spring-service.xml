@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-4.2.xsd">
+
+	<bean id="RoleService" parent="baseTransactionProxy">
+		<property name="target">
+			<bean class="app.service.impl.RoleServiceImpl">
+				<property name="roleDAO" ref="RoleDAO" />
+			</bean>
+		</property>
+	</bean>
+
+	<bean id="UserService" parent="baseTransactionProxy">
+		<property name="target">
+			<bean class="app.service.impl.UserServiceImpl">
+				<property name="userDAO" ref="UserDAO" />
+				<property name="roleDAO" ref="RoleDAO" />
+				<property name="mailSender" ref="mailSender" />
+			</bean>
+		</property>
+	</bean>
+
+	<bean id="BookService" parent="baseTransactionProxy">
+		<property name="target">
+			<bean class="app.service.impl.BookServiceImpl">
+				<property name="bookDAO" ref="BookDAO" />
+				<property name="categoryDAO" ref="CategoryDAO" />
+				<property name="reviewDAO" ref="ReviewDAO" />
+			</bean>
+		</property>
+	</bean>
+
+	<bean id="LoginService" parent="baseTransactionProxy">
+		<property name="target">
+			<bean class="app.service.impl.LoginServiceImpl">
+				<property name="userDAO" ref="UserDAO" />
+			</bean>
+		</property>
+	</bean>
+
+	<bean id="ReviewService" parent="baseTransactionProxy">
+		<property name="target">
+			<bean class="app.service.impl.ReviewServiceImpl">
+				<property name="reviewDAO" ref="ReviewDAO" />
+				<property name="bookDAO" ref="BookDAO" />
+				<property name="userDAO" ref="UserDAO" />
+				<property name="notificationDAO" ref="NotificationDAO" />
+				<property name="followDAO" ref="FollowDAO" />
+			</bean>
+		</property>
+	</bean>
+	
+	<bean id="ActivityService" parent="baseTransactionProxy">
+		<property name="target">
+			<bean class="app.service.impl.ActivityServiceImpl">
+				<property name="activityDAO" ref="ActivityDAO" />
+				<property name="userDAO" ref="UserDAO"/>
+			</bean>
+		</property>
+	</bean>
+
+	<bean id="CategoryService" parent="baseTransactionProxy">
+		<property name="target">
+			<bean class="app.service.impl.CategoryServiceImpl">
+				<property name="categoryDAO" ref="CategoryDAO" />
+			</bean>
+		</property>
+	</bean>
+	
+	<bean id="FollowService" parent="baseTransactionProxy">
+		<property name="target">
+			<bean class="app.service.impl.FollowServiceImpl">
+				<property name="followDAO" ref="FollowDAO" />
+				<property name="userDAO" ref="UserDAO" />
+			</bean>
+		</property>
+	</bean>
+	
+	<bean id="CommentService" parent="baseTransactionProxy">
+		<property name="target">
+			<bean class="app.service.impl.CommentServiceImpl">
+				<property name="commentDAO" ref="CommentDAO" />
+				<property name="reviewDAO" ref="ReviewDAO" />
+				<property name="userDAO" ref="UserDAO" />
+			</bean>
+		</property>
+	</bean>
+
+	<bean id="MarkService" parent="baseTransactionProxy">
+		<property name="target">
+			<bean class="app.service.impl.MarkServiceImpl">
+				<property name="markDAO" ref="MarkDAO" />
+				<property name="userDAO" ref="UserDAO" />
+				<property name="bookDAO" ref="BookDAO" />
+			</bean>
+		</property>
+	</bean> 
+	
+	<bean id="RequestService" parent="baseTransactionProxy">
+		<property name="target">
+			<bean class="app.service.impl.RequestServiceImpl">
+			<property name="requestDAO" ref="RequestDAO" />
+				<property name="categoryDAO" ref="CategoryDAO" />
+				<property name="userDAO" ref="UserDAO" />
+			</bean>
+		</property>
+	</bean> 
+	
+	  <bean id="NotificationService" parent="baseTransactionProxy">
+		<property name="target">
+			<bean class="app.service.impl.NotificationServiceImpl">
+				<property name="notificationDAO" ref="NotificationDAO"></property>
+			</bean>
+		</property>
+	</bean>  
+	
+
+</beans>

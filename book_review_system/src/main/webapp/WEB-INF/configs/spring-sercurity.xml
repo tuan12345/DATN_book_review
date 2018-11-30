@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:beans="http://www.springframework.org/schema/beans"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd">
+    <http pattern="/requests/**" auto-config="true">
+    	<csrf disabled="true" />
+    </http>
+    
+	<http auto-config="true">
+		<intercept-url pattern="/users*" access="hasRole('ROLE_ADMIN')" />
+		<intercept-url pattern="charts" access="hasRole('ROLE_ADMIN')" />
+		<intercept-url pattern="/profile*"
+			access="hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')" />
+		<intercept-url pattern="/adminBook*" access="hasRole('ROLE_ADMIN')" />
+		<intercept-url pattern="/adminHome*" access="hasRole('ROLE_ADMIN')" />
+		<form-login login-page="/login" login-processing-url="/j_spring_security_login"
+			default-target-url="/" authentication-failure-url="/login?error"
+			username-parameter="username" password-parameter="password" />	
+		<logout logout-url="/j_spring_security_logout"
+			logout-success-url="/logout" delete-cookies="JSESSIONID" />
+		<csrf disabled="false" />
+		<remember-me key="uniqueAndSecret" token-validity-seconds="1209600"
+			remember-me-parameter="remember-me" />
+	</http>
+
+	<authentication-manager>
+		<authentication-provider user-service-ref="LoginService">
+			<password-encoder ref="encoder" />
+		</authentication-provider>
+	</authentication-manager>
+
+	<beans:bean id="encoder"
+		class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder" />
+</beans:beans>

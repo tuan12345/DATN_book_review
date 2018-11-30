@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="app.model">
+	<class name="Activity" table="activities">
+		<id name="id" column="id">
+			<generator class="increment" />
+		</id>
+		
+		<property name="note" type="string">
+			<column name="note" />
+		</property>
+		
+		<property name="type" type="string">
+			<column name="type" />
+		</property>
+		
+		<property name="objectId" type="int">
+			<column name="object_id" />
+		</property>
+		
+		<property name="createdAt" type="date">
+			<column name="create_at" />
+		</property>
+		
+		<!-- User mapping -->
+		 <many-to-one name="user" column="user_id" class="User" fetch="join"
+			not-null="true" />
+	</class>
+</hibernate-mapping>

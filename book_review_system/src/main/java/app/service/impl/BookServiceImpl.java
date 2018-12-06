@@ -3,7 +3,10 @@ package app.service.impl;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+
 import org.apache.log4j.Logger;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -168,6 +171,100 @@ public class BookServiceImpl extends BaseServiceImpl implements BookService {
 		} catch (Exception e) {
 			logger.error(e);
 			return Collections.emptyList();
+		}
+	}
+
+	@Override
+	public Set<String> listAuthor() {
+		try {
+			Set<String> setAuthor=new HashSet<>();
+			List<String> list =bookDAO.ListAuthor();
+			for(String author:list){
+				setAuthor.add(author);
+			}
+			return setAuthor;
+		} catch (Exception e) {
+			return null;
+		}
+		
+	}
+
+	@Override
+	public List<BookInfo> listBookByAuthor(Integer page, String typeSort, String authorName) {
+		try {
+			if (typeSort == null) {
+				return ConvertModelToBean.mapBooksToBooksInf(bookDAO.booksByAuthor(page, 8, authorName));
+			} else {
+				if (typeSort.equals("1"))
+					return SortBooks.sortBooksByTitle(ConvertModelToBean.mapBooksToBooksInf(bookDAO.booksByAuthor(page, 8, authorName)));
+				return SortBooks
+						.sortBooksByPublishDate(ConvertModelToBean.mapBooksToBooksInf(bookDAO.booksByAuthor(page, 8, authorName)));
+			}
+		} catch (Exception e) {
+			return null;
+		}
+		
+	}
+
+	@Override
+	public List<Book> listBooksByAuthorName(String author) {
+		try{
+			return bookDAO.findBooksByAuthor(author);
+		}
+		catch (Exception e) {
+			return null;
+		}
+		
+	}
+
+	@Override
+	public List<Book> listBookByCategoryId(int category_id) {
+		try {
+			return bookDAO.findBooksByCategoryId(category_id);
+		} catch (Exception e) {
+			return null;
+		}
+		
+	}
+
+	@Override
+	public List<BookInfo> listBookByCategory(Integer page, String typeSort, int category_id) {
+		try {
+			if (typeSort == null) {
+				return ConvertModelToBean.mapBooksToBooksInf(bookDAO.findBookByCategoryPage(page, 8, category_id));
+			} else {
+				if (typeSort.equals("1"))
+					return SortBooks.sortBooksByTitle(ConvertModelToBean.mapBooksToBooksInf(bookDAO.findBookByCategoryPage(page, 8, category_id)));
+				return SortBooks
+						.sortBooksByPublishDate(ConvertModelToBean.mapBooksToBooksInf(bookDAO.findBookByCategoryPage(page, 8, category_id)));
+			}
+		} catch (Exception e) {
+			return null;
+		}
+	}
+
+	@Override
+	public List<Book> listBookByPublisherId(int publisher_id) {
+		try {
+			return bookDAO.findBooksByPublisherId(publisher_id);
+		} catch (Exception e) {
+			return null;
+		}
+	}
+
+	@Override
+	public List<BookInfo> listBookByPublisherPage(Integer page, String typeSort, int publisher_id) {
+		try {
+			if (typeSort == null) {
+				return ConvertModelToBean.mapBooksToBooksInf(bookDAO.findBookByPublisherPage(page, 8, publisher_id));
+			} else {
+				if (typeSort.equals("1"))
+					return SortBooks.sortBooksByTitle(ConvertModelToBean.mapBooksToBooksInf(bookDAO.findBookByPublisherPage(page, 8, publisher_id)));
+				return SortBooks
+						.sortBooksByPublishDate(ConvertModelToBean.mapBooksToBooksInf(bookDAO.findBookByPublisherPage(page, 8, publisher_id)));
+			}
+		} catch (Exception e) {
+			return null;
 		}
 	}
 }

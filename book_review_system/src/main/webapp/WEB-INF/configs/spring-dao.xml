@@ -71,6 +71,12 @@
 		</property>
 	</bean>
 	
+	<bean id="PublisherDAO" class="app.dao.impl.PublisherDAOImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	
 	
  
 </beans>

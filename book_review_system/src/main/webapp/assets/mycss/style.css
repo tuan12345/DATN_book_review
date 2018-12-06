@@ -945,7 +945,7 @@ a.checkout {
 .product-img {
 	overflow: hidden;
 	position: relative;
-	max-height: 262px;
+	height:250px;
 	object-fit: cover;
 }
 
@@ -1062,6 +1062,7 @@ img.secondary-img {
 .product-content {
 	background: #222 none repeat scroll 0 0;
 	padding: 10px 12px;
+	height: 60px;
 }
 
 .product-content h3 {
@@ -1674,6 +1675,7 @@ ul.footer-contact li i {
 -------------------------------------*/
 .shop-area {
 	padding: 60px 0;
+	background-color: white;
 }
 
 .widget {
@@ -3326,7 +3328,7 @@ a.shipping-calculator-button:hover {
 }
 
 .social-sign a.twitter {
-	background: #22A9E0;
+	background: #df4a32;
 }
 
 .login-title {
@@ -4443,4 +4445,9 @@ a.csm-button {
 }
 .noti{
 	margin-top: -30px;
+}
+.sign-up{
+	margin-top: -15px;
+	font-size: 11px;
+	color: red;
 }

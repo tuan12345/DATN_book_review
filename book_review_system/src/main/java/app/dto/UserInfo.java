@@ -8,6 +8,25 @@ public class UserInfo {
 	private String userName;
 	private String email;
 	private RoleInfo role;
+	private String phone;
+	private String passWord;
+
+	public String getPassWord() {
+		return passWord;
+	}
+
+	public void setPassWord(String passWord) {
+		this.passWord = passWord;
+	}
+
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+
 	private int unWatchedNotifications;
 	private List<NotificationInfo> notifications;
 

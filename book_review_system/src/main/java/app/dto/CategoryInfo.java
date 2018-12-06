@@ -3,6 +3,15 @@ package app.dto;
 public class CategoryInfo {
 	private Integer id;
 	private String name;
+	private int countBook;
+
+	public int getCountBook() {
+		return countBook;
+	}
+
+	public void setCountBook(int countBook) {
+		this.countBook = countBook;
+	}
 
 	public CategoryInfo(Integer id, String name) {
 		super();

@@ -15,7 +15,7 @@
 	<util:properties id="propertyConfigurer"
 		location="classpath:datasources.properties " />
 	<context:property-placeholder properties-ref="propertyConfigurer" />
-		
+	
 
 	<!-- Load all annotation from java class -->
 	<context:annotation-config />

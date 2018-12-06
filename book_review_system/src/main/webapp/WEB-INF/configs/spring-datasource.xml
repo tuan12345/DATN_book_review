@@ -54,6 +54,7 @@
 				<value>app/model/hbm/Review.hbm.xml</value>
 				<value>app/model/hbm/Comment.hbm.xml</value>
 				<value>app/model/hbm/Notification.hbm.xml</value> 
+				<value>app/model/hbm/Publisher.hbm.xml</value> 
 			</list>
 		</property>
 	</bean>

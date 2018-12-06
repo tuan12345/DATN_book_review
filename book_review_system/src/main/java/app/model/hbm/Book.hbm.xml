@@ -24,6 +24,9 @@
 		<!-- Category -->
 		 <many-to-one name="category" column="category_id" class="Category" fetch="join"
 			not-null="true" />
+			
+			<many-to-one name="publisher" column="publisher_id" class="Publisher" fetch="join"
+			not-null="true" />
 
 		<!-- List Mark -->
 		<list name="marks" fetch="join" inverse="true">

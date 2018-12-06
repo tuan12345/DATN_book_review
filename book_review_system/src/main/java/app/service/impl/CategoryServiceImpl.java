@@ -58,7 +58,9 @@ public class CategoryServiceImpl extends BaseServiceImpl implements CategoryServ
 			List<Category> categories = categoryDAO.loadCategories();
 			List<CategoryInfo> categoryInfos = new ArrayList<>();
 			for (Category category : categories) {
-				categoryInfos.add(new CategoryInfo(category.getId(), category.getName()));
+				CategoryInfo tempCategory=new CategoryInfo(category.getId(), category.getName());
+				tempCategory.setCountBook(bookDAO.findBooksByCategoryId(category.getId()).size());
+				categoryInfos.add(tempCategory);
 			}
 			return categoryInfos;
 		} catch (Exception e) {

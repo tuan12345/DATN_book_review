@@ -10,16 +10,23 @@
 		<put-attribute name="body" value="" />
 		<put-attribute name="footer" value="/views/layout/footer.jsp" />
 	</definition>
-
+	<!--Base LayoutLeft  -->
+	<definition name="baseLayoutLeft" template="/views/layout/baseLayoutLeft.jsp">
+		<put-attribute name="title" value="" />
+		<put-attribute name="header" value="/views/layout/header.jsp" />
+		<put-attribute name="left" value="/views/layout/left.jsp" />
+		<put-attribute name="content" value="" />
+		<put-attribute name="footer" value="/views/layout/footer.jsp" />
+	</definition>
 	<!-- home -->
 	<definition name="home" extends="baseLayout">
 		<put-attribute name="title" value="Home" />
 		<put-attribute name="body" value="/views/books/home.jsp" />
 	</definition>
 	<!-- list All Book -->
-	<definition name="books" extends="baseLayout">
+	<definition name="books" extends="baseLayoutLeft">
 		<put-attribute name="title" value="Books" />
-		<put-attribute name="body" value="/views/books/books.jsp" />
+		<put-attribute name="content" value="/views/books/books.jsp" />
 	</definition>
 
 	<!--bookSearch -->
@@ -71,10 +78,10 @@
 		<put-attribute name="loginBody" value="" />
 	</definition>
 
-	<!-- Login -->
-	<definition name="login" extends="loginLayout">
+	<!--user Login -->
+	<definition name="login" extends="baseLayout">
 		<put-attribute name="title" value="Login" />
-		<put-attribute name="login" value="/views/login/login.jsp" />
+		<put-attribute name="body" value="/views/login/newlogin.jsp" />
 	</definition>
 
 	<!-- Login -->

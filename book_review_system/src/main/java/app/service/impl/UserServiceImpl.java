@@ -224,4 +224,34 @@ public class UserServiceImpl extends BaseServiceImpl implements UserService {
 			throw e;
 		}
 	}
+
+	@Override
+	public boolean saveUsers(UserInfo userInfos) {
+		try {
+			Role role=roleDAO.findById(2);
+			User user = new User();
+			user.setUserName(userInfos.getUserName());
+			user.setFullName(userInfos.getName());
+			user.setEmail(userInfos.getEmail());
+			user.setPhoneNumber(userInfos.getPhone());
+			user.setRole(role);
+			user.setPassword(PasswordUtil.passwordEndcode(PasswordUtil.DEFAULT_PASSWORD));
+			saveOrUpdate(user);
+		} catch (Exception e) {
+			logger.error(e);
+			throw e;
+		}
+		return false;
+	}
+
+	@Override
+	public UserInfo findUserInfoByEmail(String email) {
+		try {
+			return ConvertModelToBean.mapUserToUserInfo(userDAO.loadUserByEmail(email));
+		} catch (Exception e) {
+			logger.error(e);
+			return null;
+		}
+		
+	}
 }

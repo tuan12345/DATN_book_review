@@ -38,9 +38,9 @@
 					<a href="${reserPassWord}"> Forgot Password?</a>
 			</span>
 			</label>
-			<button class="btn btn-primary btn-lg btn-block" type="submit">Login</button>
+			<button class="btn btn-primary btn-lg btn-block" type="submit" style="padding-top: -10px" >Login</button>
 			<a
-				href="https://accounts.google.com/o/oauth2/auth?scope=https://www.googleapis.com/auth/userinfo.email+https://www.googleapis.com/auth/userinfo.profile&state=profile&redirect_uri=http://localhost:8081/bookReview/login-google&response_type=code
+				href="https://accounts.google.com/o/oauth2/auth?scope=https://www.googleapis.com/auth/userinfo.email+https://www.googleapis.com/auth/userinfo.profile&state=profile&redirect_uri=http://localhost:8080/bookReview/login-google&response_type=code
     &client_id=<spring:eval expression="@propertyConfigurer.getProperty('GOOGLE_CLIENT_ID')" />&approval_prompt=force"><button
 					class="btn btn-danger btn-lg btn-block" type="button">
 					<i class="fa fa-google-plus"></i>

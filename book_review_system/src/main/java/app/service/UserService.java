@@ -21,12 +21,16 @@ public interface UserService extends BaseService<Integer, User> {
 	User findUserById(int id, Boolean lock);
 
 	UserInfo findUserInfoByUsername(String userName);
+	
+	UserInfo findUserInfoByEmail(String email);
 
 	boolean updatePassword(UserInfo userInfo, Locale locale);
 
 	List<UserInfo> loadAllUsers();
 
 	boolean saveUsers(List<UserInfo> userInfos);
+	
+	boolean saveUsers(UserInfo userInfos);
 	
 	boolean saveUser(GooglePojo userGoogle, String token);
 }

@@ -43,19 +43,13 @@
 <spring:url value="/assets/lib/js/jquery-1.12.4.js" var="jqueryJs" />
 <spring:url value="/assets/js/notification.js" var="notificationJs" />
 <spring:url value="/assets/js/sign-up.js" var="signUpJs" />
-<spring:url value="/assets/lib/js/jquery.nivo.slider.pack.js"
-	var="jqueryNivo" />
-	<spring:url value="/assets/lib/css/nivo-slider.css" var="nivoSlider" />
-<spring:url value="/assets/css/owl.carousel.css" var="owlCarousel" />
-<spring:url value="/assets/lib/js/nivo-active.js" var="NivoActive" />
+
 <script src="https://apis.google.com/js/platform.js" async='async'
 	defer='defer'> </script>
 <link rel="stylesheet" href="${bootstrapCss}" />
 <link rel="stylesheet" href="${frontAwesome}" />
 <link rel="stylesheet" href="${style}" />
 <link rel="stylesheet" href="${style1}" />
-<link rel="stylesheet" href="${nivoSlider}" />
-<link rel="stylesheet" href="${owlCarousel}" />
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css" />
 <script> {"parsetags": "explicit"}</script>
@@ -80,22 +74,19 @@
 <link rel="stylesheet" href="${bootstrapCss}" />
 <link rel="stylesheet" href="${style}" />
 <title><tiles:insertAttribute name="title" ignore="true" /></title>
-<spring:url value="/" var="urlHome" />
-<spring:url value="/home.jsp" var="homeUrl" />
-<spring:url value="/listAllBook.jsp" var="bookUrl" />
-<spring:url value="/assets/img/slider/s1.jpg" var="imgSliderS1"></spring:url>
-<spring:url value="/assets/img/slider/s2.png" var="imgSliderS2"></spring:url>
-<spring:url value="/assets/img/slider/s3.png" var="imgSliderS3"></spring:url>
-<spring:url value="/books" var="bookUrl" />
 </head>
 <body>
 	<div id="fb-root"></div>
 	<tiles:insertAttribute name="header" />
-	<tiles:insertAttribute name="body" />
+	<div class="shop-area" style="background-color: #f3f1f1;">
+		<div class="container" style="background-color: white;">
+			<div class="row">
+			<tiles:insertAttribute name="left" />
+			<tiles:insertAttribute name="content" />
+			</div>
+		</div>
+	</div>
 	<tiles:insertAttribute name="footer" />
 
 </body>
-<script src="${jquerymin }" type="text/javascript"></script>
-<script src="${jqueryNivo }" type="text/javascript"></script>
-<script src="${NivoActive }" type="text/javascript"></script>
 </html>

@@ -12,6 +12,8 @@ public interface UserDAO extends BaseDAO<Integer, User> {
 
 	User loadUserByUserName(String username);
 	
+	User loadUserByEmail(String email);
+	
 	User findByUserNameAndEmail(String userName, String email);
 	List<User> loadAllUsers();
 }

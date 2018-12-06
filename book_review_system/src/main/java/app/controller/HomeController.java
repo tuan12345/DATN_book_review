@@ -38,32 +38,88 @@ public class HomeController extends BaseController {
 		model.addObject("titles", bookService.getListTitle());
 		model.addObject("categories", categoryService.categoryName());
 		model.addObject("currentUser", currentUser());
+
+		model.addObject("listCategory", categoryService.loadCategories());
+		model.addObject("publishers", publisherServicel.publishers());
+		model.addObject("listAuthor", bookService.listAuthor());
 		return model;
 	}
 
 	@RequestMapping(value = "/books", method = RequestMethod.GET)
-	public ModelAndView loadBooks(@RequestParam(value = "page", required = false) Integer page,@RequestParam(value="typeSort",required=false) String typeSort) {
+	public ModelAndView loadBooks(@RequestParam(value = "page", required = false) Integer page,
+			@RequestParam(value = "typeSort", required = false) String typeSort,
+			@RequestParam(value = "authorname", required = false) String authorName,
+			@RequestParam(value = "category_id", required = false) Integer category_id,
+			@RequestParam(value = "publisher_id", required = false) Integer publisher_id,
+			@RequestParam(value = "typeshow", required = false) String typeShow) {
 		logger.info("book page");
 		ModelAndView model = new ModelAndView("books");
+		int tempCategoryId = 0;
+		int tempPublisherId = 0;
+		String typeDisplay = "";
+		if (authorName != null) {
+			typeDisplay = "1";
+		}
+		if (category_id != null) {
+			tempCategoryId = category_id;
+		}
+		if (publisher_id != null) {
+			tempPublisherId = publisher_id;
+		}
 		int curentPage = 1;
+		if (tempPublisherId != 0) {
+			model.addObject("page", bookService.page((long) bookService.listBookByPublisherId(tempPublisherId).size(), 8));
+			model.addObject("books", bookService.listBookByPublisherPage(page, typeSort, tempPublisherId));
+			model.addObject("category_id", tempCategoryId);
+			model.addObject("publisher_id", tempPublisherId);
+		} else {
+			if (authorName != null && authorName != "") {
+				model.addObject("page",
+						bookService.page((long) bookService.listBooksByAuthorName(authorName).size(), 8));
+				model.addObject("books", bookService.listBookByAuthor(page, typeSort, authorName));
+				model.addObject("authorname", authorName);
+				model.addObject("typeshow", typeDisplay);
+				model.addObject("tempCategoryId", category_id);
+				model.addObject("publisher_id", tempPublisherId);
+			} else {
+
+				if (tempCategoryId != 0) {
+					model.addObject("page",
+							bookService.page((long) bookService.listBookByCategoryId(tempCategoryId).size(), 8));
+					model.addObject("books", bookService.listBookByCategory(page, typeSort, category_id));
+					model.addObject("category_id", tempCategoryId);
+					model.addObject("publisher_id", tempPublisherId);
+				}
+
+				else {
+					model.addObject("page", bookService.page(bookService.count(), 8));
+					model.addObject("books", bookService.listBookByPage(page, typeSort));
+					model.addObject("authorname", "");
+					model.addObject("typeshow", typeDisplay);
+					model.addObject("tempCategoryId", category_id);
+					model.addObject("publisher_id", tempPublisherId);
+				}
+			}
+		}
 		if (page != null)
 			curentPage = page;
 		model.addObject("curentPage", curentPage);
-		if(typeSort==null){
+		if (typeSort == null) {
 			model.addObject("typeSort", "0");
-		}else{
-		model.addObject("typeSort", typeSort);
+		} else {
+			model.addObject("typeSort", typeSort);
 		}
 		model.addObject("titles", bookService.getListTitle());
 		model.addObject("categories", categoryService.categoryName());
-		model.addObject("page", bookService.page(bookService.count(), 8));
-		model.addObject("books", bookService.listBookByPage(page,typeSort));
+		model.addObject("listCategory", categoryService.loadCategories());
+		model.addObject("publishers", publisherServicel.publishers());
+		model.addObject("listAuthor", bookService.listAuthor());
 		return model;
 	}
 
 	@RequestMapping(value = "/Search", method = RequestMethod.GET)
 	public ModelAndView searchByTitle(@RequestParam("search") String key,
-			@RequestParam("type-search") String typeSearch) {
+			@RequestParam(value = "type-search", required = false) String typeSearch) {
 		logger.info(typeSearch);
 		String keyWords = key.trim();
 		ModelAndView model = new ModelAndView("bookSearch");

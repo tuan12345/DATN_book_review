@@ -13,6 +13,19 @@ public class Book implements Serializable {
 	private int numberOfPage;
 	private String image;
 	private Category category;
+	private Publisher publisher;
+	public Publisher getPublisher() {
+		return publisher;
+	}
+
+	public void setPublisher(Publisher publisher) {
+		this.publisher = publisher;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
 	private List<Review> reviews;
 	private List<Mark> marks;
 

@@ -29,14 +29,14 @@ public class ConvertModelToBean {
 
 	public static List<BookInfo> mapBooksToBooksInf(List<Book> books) {
 		Function<Book, BookInfo> mapBookToBookInfo = b -> new BookInfo(b.getId(), b.getTittle(), b.getPublishDate(),
-				b.getAuthorName(), b.getNumberOfPage(), b.getImage(), b.getCategory());
+				b.getAuthorName(), b.getNumberOfPage(), b.getImage(), b.getCategory(),b.getImageDetail(),b.getPublisher(),b.getDescription());
 		List<BookInfo> listBooksInfo = books.stream().map(mapBookToBookInfo).collect(Collectors.toList());
 		return listBooksInfo;
 	}
 
 	public static BookInfo mapBookToBookInfo(Book book) {
 		Function<Book, BookInfo> map = b -> new BookInfo(b.getId(), b.getTittle(), b.getPublishDate(),
-				b.getAuthorName(), b.getNumberOfPage(), b.getImage(), b.getCategory());
+				b.getAuthorName(), b.getNumberOfPage(), b.getImage(), b.getCategory(),b.getImageDetail(),b.getPublisher(),b.getDescription());
 		return map.apply(book);
 	}
 
@@ -58,14 +58,14 @@ public class ConvertModelToBean {
 
 	public static List<ReviewInfo> mapReviewToReviewsInf(List<Review> reviews) {
 		Function<Review, ReviewInfo> mapReviewToReviewInfo = r -> new ReviewInfo(r.getId(), r.getNumberOfStar(),
-				r.getContent(), r.getCreatedAt(), mapUserToUserInfo(r.getUser()), mapBookToBookInfo(r.getBook()));
+				r.getContent(), r.getCreatedAt(), mapUserToUserInfo(r.getUser()), mapBookToBookInfo(r.getBook()),r.getTitle());
 		List<ReviewInfo> listReviewsInfo = reviews.stream().map(mapReviewToReviewInfo).collect(Collectors.toList());
 		return listReviewsInfo;
 	}
 
 	public static ReviewInfo mapReviewToReviewInfo(Review review) {
 		Function<Review, ReviewInfo> map = r -> new ReviewInfo(r.getId(), r.getNumberOfStar(), r.getContent(),
-				r.getCreatedAt(), mapUserToUserInfo(r.getUser()), mapBookToBookInfo(r.getBook()));
+				r.getCreatedAt(), mapUserToUserInfo(r.getUser()), mapBookToBookInfo(r.getBook()),r.getTitle());
 		return map.apply(review);
 	}
 

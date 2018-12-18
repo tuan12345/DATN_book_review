@@ -22,6 +22,12 @@
 			<column name="image" />
 		</property>
 		<!-- Category -->
+		<property name="imageDetail" type="string">
+			<column name="image_detail" />
+		</property>
+		<property name="description" type="string">
+			<column name="description" />
+		</property>
 		 <many-to-one name="category" column="category_id" class="Category" fetch="join"
 			not-null="true" />
 			

@@ -24,6 +24,8 @@
 <spring:url
 	value="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"
 	var="jquery112" />
+	<spring:url value="/assets/js/loadReviewAjax.js"
+	var="loadReviewAjax" />
 <spring:url value="/assets/lib/js/jquery-ui.js" var="jqueryUi" />
 <spring:url value="/assets/css/font-awesome.min.css" var="frontAwesome" />
 <spring:url value="/assets/mycss/style.css" var="style" />
@@ -50,6 +52,7 @@
 <spring:url value="/assets/lib/js/nivo-active.js" var="NivoActive" />
 <script src="https://apis.google.com/js/platform.js" async='async'
 	defer='defer'> </script>
+	<spring:url value="/assets/js/addReview.js" var="addReviewJs" />
 <link rel="stylesheet" href="${bootstrapCss}" />
 <link rel="stylesheet" href="${frontAwesome}" />
 <link rel="stylesheet" href="${style}" />
@@ -98,4 +101,7 @@
 <script src="${jquerymin }" type="text/javascript"></script>
 <script src="${jqueryNivo }" type="text/javascript"></script>
 <script src="${NivoActive }" type="text/javascript"></script>
+<script src="${loadReviewAjax}" type="text/javascript"></script>
+<script src="${addReviewJs}" type="text/javascript"></script>
+
 </html>

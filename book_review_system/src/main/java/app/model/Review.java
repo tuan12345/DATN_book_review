@@ -5,9 +5,17 @@ import java.util.List;
 
 public class Review {
 	private Integer id;
-	private float numberOfStar;
+	private int numberOfStar;
 	private String content;
 	private Date createdAt;
+	private String title;
+	public String getTitle() {
+		return title;
+	}
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
 	private Book book;
 	private User user;
 	private List<Comment> comments;
@@ -28,11 +36,11 @@ public class Review {
 		this.id = id;
 	}
 
-	public float getNumberOfStar() {
+	public int getNumberOfStar() {
 		return numberOfStar;
 	}
 
-	public void setNumberOfStar(float numberOfStar) {
+	public void setNumberOfStar(int numberOfStar) {
 		this.numberOfStar = numberOfStar;
 	}
 

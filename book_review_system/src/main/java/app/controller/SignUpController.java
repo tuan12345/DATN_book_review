@@ -17,8 +17,6 @@ public class SignUpController extends BaseController {
 	@RequestMapping(value = "/signUp", method = RequestMethod.POST/*, produces = { MediaType.APPLICATION_JSON_VALUE }*/)
 	public @ResponseBody SignUpResponseTransfer singUp(@ModelAttribute("userinfo") UserInfo userInfo) {
 		
-		logger.info("----concac"+ userInfo);
-		logger.info("----concac222"+ userInfo.getEmail());
 		SignUpResponseTransfer signUp = new SignUpResponseTransfer();
 		signUp.setCheckEmail("");
 		signUp.setCheckUsername("");

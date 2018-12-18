@@ -184,4 +184,9 @@ $(function() {
 			}
 		})
 	});
+	
+	$('#check').click(function() {
+		var value = CKEDITOR.instances['review_detail'].getData();
+		alert(value);
+	});
 });

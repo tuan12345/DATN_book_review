@@ -1,3 +1,4 @@
 $(document).ready(function() {
-	CKEDITOR.replace('comment');
+	CKEDITOR.replace('review_detail');
+	
 });

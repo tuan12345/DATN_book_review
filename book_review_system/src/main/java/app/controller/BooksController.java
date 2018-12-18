@@ -23,7 +23,7 @@ public class BooksController extends BaseController {
 	private static final Logger logger = Logger.getLogger(BooksController.class);
 
 	@RequestMapping("books/{id}")
-	public ModelAndView bookDetail(@PathVariable String id, Principal principal) {
+	public ModelAndView bookDetail(@PathVariable String id, Principal principal ,@RequestParam(value="page",required=false) Integer page) {
 		logger.info("Book Detail");
 		ModelAndView model = new ModelAndView("bookDetail");
 		if (principal != null) {
@@ -32,10 +32,13 @@ public class BooksController extends BaseController {
 			model.addObject("markInfo", markInfo);
 		}
 		BookInfo bookInfo = bookService.findBookById(Integer.parseInt(id));
+		logger.info("Category---"+bookInfo.getDescription());
 		model.addObject("bookInfo", bookInfo);
+		model.addObject("book_id",Integer.parseInt(id));
 		model.addObject("categories", categoryService.categoryName());
 		model.addObject("titles", bookService.getListTitle());
-		model.addObject("reviews", reviewService.loadReviewsForBook(Integer.parseInt(id)));
+		model.addObject("totalPage",reviewService.page((long)reviewService.loadReviewsForBook(Integer.parseInt(id)).size(), 5));
+		model.addObject("reviews", reviewService.loadReviewsByPage(page, 5, Integer.parseInt(id)));
 
 		return model;
 	}
@@ -50,7 +53,7 @@ public class BooksController extends BaseController {
 		return model;
 	}
 
-	@RequestMapping(value = "books", method = RequestMethod.POST, consumes = { MediaType.MULTIPART_FORM_DATA_VALUE })
+	@RequestMapping(value = "Addbooks", method = RequestMethod.POST, consumes = { MediaType.MULTIPART_FORM_DATA_VALUE })
 	public ModelAndView addBook(@ModelAttribute("BookInfo") BookInfo bookInfo, HttpServletRequest request,
 			@RequestParam("publishDate1") String date,
 			@RequestParam(value = "image1", required = false) MultipartFile fileUpload) {

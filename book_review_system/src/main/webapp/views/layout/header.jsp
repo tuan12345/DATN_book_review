@@ -3,18 +3,14 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!--parameter url  -->
-<spring:url value="/books" var="bookUrl"></spring:url>
 <spring:url value="/" var="homeUrl"></spring:url>
 <spring:url value="/login" var="loginUrl"></spring:url>
 <spring:url value="/requestBook" var="requestUrl"></spring:url>
 <spring:url value="/assets/img/bookstor_compact.png" var="icon" />
-
-<spring:url value="/" var="urlHome" />
-<spring:url value="/" var="homeUrl" />
 <spring:url value="/assets/img/slider/s1.jpg" var="imgSliderS1"></spring:url>
 <spring:url value="/assets/img/slider/s2.png" var="imgSliderS2"></spring:url>
 <spring:url value="/assets/img/slider/s3.png" var="imgSliderS3"></spring:url>
-<spring:url value="/books" var="bookUrl" />
+<spring:url value="/books/" var="bookUrl" />
 <header class="header-pos sticky-top">
 	<!-- header-bottom-area start -->
 	
@@ -31,8 +27,8 @@
 						<div class="main-menu">
 							<nav>
 								<ul>
-									<li><a href="${homeUrl}">home</a></li>
-									<li><a href="${bookUrl}">Book</a></li>
+									<li><a href="${homeUrl}">home</a></li>			
+										<li><a href="${bookUrl}">Book</a></li>								
 									<security:authorize access="isAnonymous()">
 										<li><a id="alert">Request</a></li>
 									</security:authorize>
@@ -43,15 +39,15 @@
 												<div class="mega-menu mega-menu-2">											
 													<span>
 														<a href="shop.html" class="mega-title">Publisher </a>
-														<c:forEach items="${publishers }" var="publisher">
-														<a href="${bookUrl }?publisher_id=${publisher.id }">${publisher.name } </a>
+														<c:forEach items="${publishers }" var="publisherInfo">
+														<a href="${bookUrl }?publisher_id=${publisherInfo.id }">${publisherInfo.name } </a>
 														</c:forEach>
 														
 													</span>
 													<span>
 														<a href="shop.html" class="mega-title">Author </a>
-														<c:forEach items="${listAuthor }" var="author">
-														<a href="${bookUrl }?authorname=${author }">${author }</a>
+														<c:forEach items="${listAuthor }" var="authorInfo">
+														<a href="${bookUrl }?authorname=${authorInfo.name }">${authorInfo.name }</a>
 														</c:forEach>
 														
 														

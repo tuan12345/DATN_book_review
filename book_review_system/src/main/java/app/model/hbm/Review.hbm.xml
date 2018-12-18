@@ -7,8 +7,11 @@
 			<generator class="increment" />
 		</id>
 
-		<property name="numberOfStar" type="float">
+		<property name="numberOfStar" type="int">
 			<column name="number_of_star" />
+		</property>
+		<property name="title" type="string">
+			<column name="title" />
 		</property>
 		<property name="content" type="string">
 			<column name="content" />

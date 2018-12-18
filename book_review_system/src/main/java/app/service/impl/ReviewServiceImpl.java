@@ -9,6 +9,7 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import app.dto.FollowInfo;
+import app.dto.ResponseReviewInfo;
 import app.dto.ReviewInfo;
 import app.helper.SendNotification;
 import app.model.Follow;
@@ -130,6 +131,58 @@ public class ReviewServiceImpl extends BaseServiceImpl implements ReviewService 
 	public ReviewInfo saveOrUpdate(ReviewInfo entity) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public List<ReviewInfo> loadReviewsByPage(Integer page, Integer maxResult, Integer book_id) {
+		try {
+			return ConvertModelToBean.mapReviewToReviewsInf(reviewDAO.loadReviewsByPage(page, maxResult, book_id));
+		} catch (Exception e) {
+			return null;
+		}
+		
+	}
+
+	@Override
+	public Integer page(Long countReview, Integer maxResult) {
+			return (int) ((countReview < maxResult) ? 1
+					: ((countReview % maxResult == 0) ? (countReview / maxResult) : (countReview / maxResult + 1)));
+		
+	}
+	public static void main(String[] args) {
+		System.out.println(new ReviewServiceImpl().page((long) 3, 5));
+	}
+
+	@Override
+	public List<ResponseReviewInfo> loadAjxReview(Integer page, Integer book_id, Integer maxResult) {
+		try {
+			List<Review> reviews=reviewDAO.loadReviewsByPage(page, maxResult, book_id);
+			List<ResponseReviewInfo> listResponseReviewInfo=new ArrayList<>();
+			for (Review review : reviews) {
+				ResponseReviewInfo response=new ResponseReviewInfo(review.getUser().getFullName(),  review.getCreatedAt(), review.getNumberOfStar(), review.getContent());
+				listResponseReviewInfo.add(response);
+			}
+			return listResponseReviewInfo;
+		} catch (Exception e) {
+			return null;
+		}
+		
+	}
+
+	@Override
+	public List<ResponseReviewInfo> loadReviewUseful(Integer page,Integer book_id, Integer maxResult) {
+		try {
+			List<Review> reviews=reviewDAO.loadReviewsUseful(page,book_id, maxResult);
+			List<ResponseReviewInfo> listResponseReviewInfo=new ArrayList<>();
+			for (Review review : reviews) {
+				ResponseReviewInfo response=new ResponseReviewInfo(review.getUser().getFullName(),  review.getCreatedAt(), review.getNumberOfStar(), review.getContent());
+				response.setTotalPage(page((long)reviewDAO.loadAllReviewUseful().size(), maxResult));
+				listResponseReviewInfo.add(response);
+			}
+			return listResponseReviewInfo;
+		} catch (Exception e) {
+			return null;
+		}
 	}
 
 }

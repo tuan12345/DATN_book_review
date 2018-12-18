@@ -84,10 +84,9 @@ public class BookDAOImpl extends GenericDAO<Integer, Book> implements BookDAO {
 		return subCritera.list();
 	}
 
-	
 	@Override
 	public List<Book> findBooksByKeyWorld(String keyWorld) {
-		Criteria criteria=getSession().createCriteria(Book.class);
+		Criteria criteria = getSession().createCriteria(Book.class);
 		criteria.add(Restrictions.like("title", keyWorld, MatchMode.START));
 		return criteria.list();
 	}
@@ -96,56 +95,61 @@ public class BookDAOImpl extends GenericDAO<Integer, Book> implements BookDAO {
 	@Override
 	public List<String> ListAuthor() {
 		return getSession().createQuery("select authorName from Book").getResultList();
-		
+
 	}
 
 	@Override
 	public List<Book> findBooksByAuthor(String author) {
-		Criteria criteria=getSession().createCriteria(Book.class);
+		Criteria criteria = getSession().createCriteria(Book.class);
 		criteria.add(Restrictions.eq("authorName", author));
 		return criteria.list();
 	}
 
 	@Override
-	public List<Book> booksByAuthor(Integer page, Integer maxResult,String authorName) {
-		return getSession().createCriteria(Book.class).add(Restrictions.eq("authorName", authorName)).setFirstResult(page != null ? (page - 1) * maxResult : 0)
-				.setMaxResults(maxResult).list();
-		
+	public List<Book> booksByAuthor(Integer page, Integer maxResult, String authorName) {
+		return getSession().createCriteria(Book.class).add(Restrictions.eq("authorName", authorName))
+				.setFirstResult(page != null ? (page - 1) * maxResult : 0).setMaxResults(maxResult).list();
+
 	}
 
 	@Override
 	public List<Book> findBookByKeyWorldLike(String key) {
-		Criteria criteria=getSession().createCriteria(Book.class).add(Restrictions.like("authorName", "%"+key+"%"));
+		Criteria criteria = getSession().createCriteria(Book.class)
+				.add(Restrictions.like("authorName", "%" + key + "%"));
 		return criteria.list();
-	
+
 	}
 
 	@Override
 	public List<Book> findBooksByCategoryId(int category_id) {
-		Criteria criteria=getSession().createCriteria(Book.class).add(Restrictions.eq("category.id", category_id));
+		Criteria criteria = getSession().createCriteria(Book.class).add(Restrictions.eq("category.id", category_id));
 		return criteria.list();
 	}
 
 	@Override
 	public List<Book> findBookByCategoryPage(Integer page, Integer maxResult, int category_id) {
-		return getSession().createCriteria(Book.class).add(Restrictions.eq("category.id", category_id)).setFirstResult(page != null ? (page - 1) * maxResult : 0)
-				.setMaxResults(maxResult).list();
+		return getSession().createCriteria(Book.class).add(Restrictions.eq("category.id", category_id))
+				.setFirstResult(page != null ? (page - 1) * maxResult : 0).setMaxResults(maxResult).list();
 	}
 
 	@Override
 	public List<Book> findBooksByPublisherId(int publisher_id) {
-		Criteria criteria=getSession().createCriteria(Book.class).add(Restrictions.eq("publisher.id", publisher_id));
+		Criteria criteria = getSession().createCriteria(Book.class).add(Restrictions.eq("publisher.id", publisher_id));
 		return criteria.list();
-		
+
 	}
 
 	@Override
 	public List<Book> findBookByPublisherPage(Integer page, Integer maxResult, int publisher_id) {
-		return getSession().createCriteria(Book.class).add(Restrictions.eq("publisher.id", publisher_id)).setFirstResult(page != null ? (page - 1) * maxResult : 0)
-				.setMaxResults(maxResult).list();
+		return getSession().createCriteria(Book.class).add(Restrictions.eq("publisher.id", publisher_id))
+				.setFirstResult(page != null ? (page - 1) * maxResult : 0).setMaxResults(maxResult).list();
 	}
 
-	
-	
+	@Override
+	public List<Book> findBookByTitlePage(Integer page, Integer maxResult, String author) {
+		return getSession().createCriteria(Book.class).add(Restrictions.eq("author", author))
+				.setFirstResult(page != null ? (page - 1) * maxResult : 0).setMaxResults(maxResult).list();
+
+	}
 
 }

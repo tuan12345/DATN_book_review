@@ -14,6 +14,24 @@ public class Book implements Serializable {
 	private String image;
 	private Category category;
 	private Publisher publisher;
+	private String imageDetail;
+	private String description;
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public String getImageDetail() {
+		return imageDetail;
+	}
+
+	public void setImageDetail(String imageDetail) {
+		this.imageDetail = imageDetail;
+	}
+
 	public Publisher getPublisher() {
 		return publisher;
 	}

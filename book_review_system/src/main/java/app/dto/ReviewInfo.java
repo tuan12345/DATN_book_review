@@ -4,11 +4,20 @@ import java.util.Date;
 
 public class ReviewInfo {
 	private Integer id;
-	private float numberOfStar;
+	private int numberOfStar;
 	private String content;
 	private Date createdAt;
 	private UserInfo userInfo;
 	private BookInfo bookInfo;
+	private String title;
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
 
 	public BookInfo getBookInfo() {
 		return bookInfo;
@@ -32,14 +41,14 @@ public class ReviewInfo {
 	}
 	
 
-	public ReviewInfo(float numberOfStar, String content) {
+	public ReviewInfo(int numberOfStar, String content) {
 		
 		this.numberOfStar = numberOfStar;
 		this.content = content;
 		
 	}
 
-	public ReviewInfo(Integer id, float numberOfStar, String content, Date createdAt, UserInfo userInfo,BookInfo bookInfo) {
+	public ReviewInfo(Integer id, int numberOfStar, String content, Date createdAt, UserInfo userInfo,BookInfo bookInfo,String title) {
 		super();
 		this.id = id;
 		this.numberOfStar = numberOfStar;
@@ -47,6 +56,7 @@ public class ReviewInfo {
 		this.createdAt = createdAt;
 		this.userInfo = userInfo;
 		this.bookInfo=bookInfo;
+		this.title=title;
 	}
 
 	public Integer getId() {
@@ -57,11 +67,11 @@ public class ReviewInfo {
 		this.id = id;
 	}
 
-	public float getNumberOfStar() {
+	public int getNumberOfStar() {
 		return numberOfStar;
 	}
 
-	public void setNumberOfStar(float numberOfStar) {
+	public void setNumberOfStar(int numberOfStar) {
 		this.numberOfStar = numberOfStar;
 	}
 

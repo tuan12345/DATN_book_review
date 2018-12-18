@@ -5,11 +5,21 @@ public class PublisherInfo {
 	private String name;
 	private String address;
 	private String phone;
+	private int numberBook;
+	public int getNumberBook() {
+		return numberBook;
+	}
+	public void setNumberBook(int numberBook) {
+		this.numberBook = numberBook;
+	}
 	public Integer getId() {
 		return Id;
 	}
 	public void setId(Integer id) {
 		Id = id;
+	}
+	public PublisherInfo() {
+		super();
 	}
 	public String getName() {
 		return name;

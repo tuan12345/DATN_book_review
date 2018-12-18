@@ -6,7 +6,7 @@
 <%@ taglib uri="http://tiles.apache.org/tags-tiles-extras"
 	prefix="tilesx"%>
 <spring:url value="/assets/img/book" var="img"></spring:url>
-<spring:url value="/books" var="urlBook"></spring:url>
+<spring:url value="/books/" var="urlBook"></spring:url>
 <!--start Bootstrap  -->
 <spring:url value="/assets/img/book/1.jpg" var="book" />
 <spring:url value="/assets/js/owl.carousel.min.js"
@@ -24,9 +24,9 @@
 <link rel="stylesheet" href="${owlCarousel}" />
 <script src="${oderBooksJs }" type="text/javascript"></script>
 <!---end Bootstrap   -->
-<div class="col-lg-9 col-md-9 col-sm-12 col-xs-12" style="padding-top: 20px;" >
+<div class="col-md-9" style="padding-top: 20px;" >
 	<div class="category-area category-area-2 ">
-		<div class="container-fluid" style="background-color: white;">
+		
 			<div class="row" >
 				<div class="row">
 					<div class="section-title col-sm-3">
@@ -37,7 +37,7 @@
 						</div>
 					</div>
 					<div class="search-sort col-sm-9">
-						<form:form  action="/bookReview/books" method="GET">
+						<form:form  action="/bookReview/books/" method="GET">
 							<input id="type" hidden value="${typeSort}" />
 							
 							<div class="col-sm-3 slect">
@@ -52,7 +52,7 @@
 						</form:form>
 						<div class="input-search-book col-sm-6 search-books">
 							<div data-list-title="${titles }" id="list-title"></div>
-							<spring:url value="Search" var="searchActionUrl" />
+							<spring:url value="/Search" var="searchActionUrl" />
 							<div data-list-category="${categories }" id="list-category"></div>
 							<form:form action="${searchActionUrl }" method="get">
 								<div class="input-search-book">
@@ -60,9 +60,9 @@
 										<li><input id="search-book" type="text" name="search"
 											class="form-control" placeholder="Search"></li>
 										<li>
-											<button class="btn btn-search" type="submit">
-												<i class="fa fa-search"></i>
-											</button>
+											<input class="btn btn-search" type="submit">
+											
+											</input>
 										</li>
 
 									</ul>
@@ -83,12 +83,23 @@
 						<div class="col-md-3 mt-3">
 							<div class="single-product">
 								<div class="product-img">
-									<a href="single-product.html"> <img
+									<a href="/bookReview/books/${bookInfo.id }"> <img
 										src="${img }/${bookInfo.image}" alt="" />
 
 									</a>
-									<!-- <span class="tag-line">new</span> -->
-									<div class="product-action">
+									</div>
+									<span class="name">${bookInfo.tittle}</span></br>
+									<span class="name_author">${bookInfo.authorName}</span>
+									</br>
+										<span class="rating">
+											<i class="fa fa-star"></i>
+											<i class="fa fa-star"></i>
+											<i class="fa fa-star"></i>
+											<i class="fa fa-star"></i>
+											<i class="fa fa-star-o"></i>										
+										</span>	
+								
+									<%-- 	<div class="product-action">
 										<div class="button-top">
 											<a href="#" data-toggle="modal" data-target="#productModal">
 												<!-- <i
@@ -102,19 +113,8 @@
 												<a href="books/${bookInfo.id }">View Detail</a>
 											</button>
 										</div>
-									</div>
-								</div>
-								<div class="product-content">
-									<h3>
-										<a href="single-product.html">${bookInfo.tittle }</a>
-									</h3>
-									<!-- <div class="price">
-								<span class="fa fa-star-o"></span> <span class="fa fa-star-o"></span>
-								<span class="fa fa-star-o"></span> <span class="fa fa-star-o"></span>
-								<span class="fa fa-star-o"></span>
-								<span class="old">$80.11</span>
-							</div> -->
-								</div>
+									</div> --%>
+									
 							</div>
 						</div>
 
@@ -138,7 +138,9 @@
 						</c:choose>
 						<!--End Previous  -->
 						<!--Pages  -->
+						
 						<c:forEach begin="1" end="${page }" var="val">
+						
 							<li class="page-item"><a class="page-link"
 								href="${urlBook }?page=${val }&typeSort=${typeSort}&authorname=${authorname}&category_id=${category_id}&publisher_id=${publisher_id}">${val}</a></li>
 						</c:forEach>
@@ -150,7 +152,7 @@
 							</c:when>
 							<c:otherwise>
 								<li class="page-item"><a class="page-link"
-									href="${urlBook}?page=${curentPage+1 }&typeSort=${typeSort}&authorname=${authorname}&category_id=${category_id}&publisher_id=${publisher_id}">Next</a></li>
+									href="/books?page=${curentPage+1 }&typeSort=${typeSort}&authorname=${authorname}&category_id=${category_id}&publisher_id=${publisher_id}">Next</a></li>
 							</c:otherwise>
 						</c:choose>
 						<!--End Next  -->
@@ -171,7 +173,7 @@
 			</div>
 			<!--<!--end paging  -->
 		</div>
-	</div>
+	
 </div>
 <!--start Bootstrap  -->
 <script src="${jquerymin }" type="text/javascript"></script>

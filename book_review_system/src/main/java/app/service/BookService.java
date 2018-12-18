@@ -5,6 +5,7 @@ import java.util.Set;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import app.dto.AuthorInfo;
 import app.dto.BookChart;
 import app.dto.BookInfo;
 import app.model.Book;
@@ -29,7 +30,7 @@ public interface BookService extends BaseService<Integer, Book> {
 	
 	List<BookChart> loadBooksByDate(int month, int year);
 	
-	Set<String> listAuthor();
+	Set<AuthorInfo> listAuthor();
 	
 	List<Book> listBooksByAuthorName(String author);
 	
@@ -40,6 +41,8 @@ public interface BookService extends BaseService<Integer, Book> {
 	List<Book> listBookByPublisherId(int publisher_id);
 	
 	List<BookInfo> listBookByPublisherPage(Integer page,String typeSort ,int  publisher_id);
+	
+	List<BookInfo> listBookByAuthorPage(Integer page,String typeSort ,String  author);
 	
 	
 	

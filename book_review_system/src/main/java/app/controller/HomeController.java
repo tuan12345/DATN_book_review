@@ -3,6 +3,9 @@ package app.controller;
 import java.security.Principal;
 import java.util.List;
 import java.util.Locale;
+
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -51,9 +54,12 @@ public class HomeController extends BaseController {
 			@RequestParam(value = "authorname", required = false) String authorName,
 			@RequestParam(value = "category_id", required = false) Integer category_id,
 			@RequestParam(value = "publisher_id", required = false) Integer publisher_id,
-			@RequestParam(value = "typeshow", required = false) String typeShow) {
+			@RequestParam(value = "typeshow", required = false) String typeShow, HttpServletRequest request) {
 		logger.info("book page");
 		ModelAndView model = new ModelAndView("books");
+		String key = (String) request.getAttribute("key");
+		String type_search = (String) request.getAttribute("type-serch");
+
 		int tempCategoryId = 0;
 		int tempPublisherId = 0;
 		String typeDisplay = "";
@@ -67,47 +73,63 @@ public class HomeController extends BaseController {
 			tempPublisherId = publisher_id;
 		}
 		int curentPage = 1;
-		if (tempPublisherId != 0) {
-			model.addObject("page", bookService.page((long) bookService.listBookByPublisherId(tempPublisherId).size(), 8));
-			model.addObject("books", bookService.listBookByPublisherPage(page, typeSort, tempPublisherId));
-			model.addObject("category_id", tempCategoryId);
-			model.addObject("publisher_id", tempPublisherId);
-		} else {
-			if (authorName != null && authorName != "") {
+		if (key != null && type_search != null) {
+			if (type_search.equals("title")) {
+				model.addObject("books", bookService.listBookByAuthorPage(page, typeSort, key));
+				model.addObject("page", bookService.page((long) bookService.findBookByTitle(key).size(), 8));
+			}
+			if (type_search.equals("category")) {
+				CategoryInfo category = categoryService.findCategoryByName(key);
+				model.addObject("books", bookService.listBookByCategory(page, typeSort, category.getId()));
 				model.addObject("page",
-						bookService.page((long) bookService.listBooksByAuthorName(authorName).size(), 8));
-				model.addObject("books", bookService.listBookByAuthor(page, typeSort, authorName));
-				model.addObject("authorname", authorName);
-				model.addObject("typeshow", typeDisplay);
-				model.addObject("tempCategoryId", category_id);
+						bookService.page((long) bookService.listBookByCategoryId(category.getId()).size(), 8));
+			}
+		} else {
+			if (tempPublisherId != 0) {
+				model.addObject("page",
+						bookService.page((long) bookService.listBookByPublisherId(tempPublisherId).size(), 8));
+				model.addObject("books", bookService.listBookByPublisherPage(page, typeSort, tempPublisherId));
+				model.addObject("category_id", tempCategoryId);
 				model.addObject("publisher_id", tempPublisherId);
 			} else {
-
-				if (tempCategoryId != 0) {
+				if (authorName != null && authorName != "") {
 					model.addObject("page",
-							bookService.page((long) bookService.listBookByCategoryId(tempCategoryId).size(), 8));
-					model.addObject("books", bookService.listBookByCategory(page, typeSort, category_id));
-					model.addObject("category_id", tempCategoryId);
-					model.addObject("publisher_id", tempPublisherId);
-				}
-
-				else {
-					model.addObject("page", bookService.page(bookService.count(), 8));
-					model.addObject("books", bookService.listBookByPage(page, typeSort));
-					model.addObject("authorname", "");
+							bookService.page((long) bookService.listBooksByAuthorName(authorName).size(), 8));
+					model.addObject("books", bookService.listBookByAuthor(page, typeSort, authorName));
+					model.addObject("authorname", authorName);
 					model.addObject("typeshow", typeDisplay);
 					model.addObject("tempCategoryId", category_id);
 					model.addObject("publisher_id", tempPublisherId);
+				} else {
+
+					if (tempCategoryId != 0) {
+						model.addObject("page",
+								bookService.page((long) bookService.listBookByCategoryId(tempCategoryId).size(), 4));
+
+						model.addObject("books", bookService.listBookByCategory(page, typeSort, category_id));
+						model.addObject("category_id", tempCategoryId);
+						model.addObject("publisher_id", tempPublisherId);
+					}
+
+					else {
+						model.addObject("page", bookService.page(bookService.count(), 8));
+
+						model.addObject("books", bookService.listBookByPage(page, typeSort));
+						model.addObject("authorname", "");
+						model.addObject("typeshow", typeDisplay);
+						model.addObject("tempCategoryId", category_id);
+						model.addObject("publisher_id", tempPublisherId);
+					}
 				}
 			}
-		}
-		if (page != null)
-			curentPage = page;
-		model.addObject("curentPage", curentPage);
-		if (typeSort == null) {
-			model.addObject("typeSort", "0");
-		} else {
-			model.addObject("typeSort", typeSort);
+			if (page != null)
+				curentPage = page;
+			model.addObject("curentPage", curentPage);
+			if (typeSort == null) {
+				model.addObject("typeSort", "0");
+			} else {
+				model.addObject("typeSort", typeSort);
+			}
 		}
 		model.addObject("titles", bookService.getListTitle());
 		model.addObject("categories", categoryService.categoryName());
@@ -118,22 +140,26 @@ public class HomeController extends BaseController {
 	}
 
 	@RequestMapping(value = "/Search", method = RequestMethod.GET)
-	public ModelAndView searchByTitle(@RequestParam("search") String key,
-			@RequestParam(value = "type-search", required = false) String typeSearch) {
-		logger.info(typeSearch);
+	public String searchByTitle(@RequestParam("search") String key,
+			@RequestParam(value = "type-search", required = false) String typeSearch, HttpServletRequest request) {
 		String keyWords = key.trim();
-		ModelAndView model = new ModelAndView("bookSearch");
-		model.addObject("categories", categoryService.categoryName());
-		model.addObject("titles", bookService.getListTitle());
-		model.addObject("key", key);
-		model.addObject("typeSearch", typeSearch);
-		if (typeSearch.equals("title")) {
-			model.addObject("books", bookService.findBookByTitle(keyWords));
-		}
-		if (typeSearch.equals("category")) {
-			CategoryInfo category = categoryService.findCategoryByName(keyWords);
-			model.addObject("books", bookService.listBooksByCategoryId(category.getId()));
-		}
-		return model;
+		request.setAttribute("key", keyWords);
+		request.setAttribute("type-serch", typeSearch);
+		return "forward:/books";
+
+		/*
+		 * logger.info("type search-----"+typeSearch);
+		 * 
+		 * ModelAndView model = new ModelAndView("books");
+		 * model.addObject("categories", categoryService.categoryName());
+		 * model.addObject("titles", bookService.getListTitle());
+		 * model.addObject("key", key); model.addObject("typeSearch",
+		 * typeSearch); if (typeSearch.equals("title")) {
+		 * model.addObject("books", bookService.findBookByTitle(keyWords)); } if
+		 * (typeSearch.equals("category")) { CategoryInfo category =
+		 * categoryService.findCategoryByName(keyWords);
+		 * model.addObject("books",
+		 * bookService.listBooksByCategoryId(category.getId())); } return model;
+		 */
 	}
 }

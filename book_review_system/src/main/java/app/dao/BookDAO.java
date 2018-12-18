@@ -36,5 +36,7 @@ public interface BookDAO extends BaseDAO<Integer, Book> {
 	
 	List<Book> findBookByPublisherPage(Integer page,Integer maxResult,int publisher_id);
 	
+	List<Book> findBookByTitlePage(Integer page,Integer maxResult,String author);
+	
 	
 }
